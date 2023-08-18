@@ -11,6 +11,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
+
     public Ventana() {
         initComponents();
         this.setTitle("5 Por Favor");

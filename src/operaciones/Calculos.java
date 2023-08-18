@@ -26,7 +26,7 @@ public class Calculos {
         ArrayList<Integer> num1 = new ArrayList<Integer>();
         ArrayList<Integer> num2 = new ArrayList<Integer>();
         int tamaño;
-        //Definir el tamaño del resultado
+        //Definir el tamaño del resultado.
         if (cad1.size() >= cad2.size()) {
             tamaño = cad1.size();
             for (int i = cad2.size(); i < tamaño; i++) {
@@ -38,35 +38,68 @@ public class Calculos {
                 cad2.add("0");
             }
         }
+        //igualar en tamaño todas las cadenas.
         for (int i = 0; i < tamaño; i++) {
+            resultadoFinal.add(0);
             carry.add(0);
             num1.add(0);
             num2.add(0);
-            resultadoFinal.add(0);
         }
+        //Pasar a enteros(int) los numeros.
         for (int i = 0; i < tamaño; i++) {
-            num1.set(i,Integer.parseInt(cad1.get(i)));
-            num2.set(i,Integer.parseInt(cad2.get(i)));
+            num1.set(i, Integer.parseInt(cad1.get(i)));
+            num2.set(i, Integer.parseInt(cad2.get(i)));
         }
-        //resultadoFinal = sumarArrays(num1,num2,base,tamaño,carry);
+        //LLamar al metodo de sumar arreglos.
+        resultadoFinal = sumaArrays(num1,num2);
 
+        //Ordenar el resultado.
         ArrayList<Integer> resultadoFinalOrdenado = ordenarResultado(resultadoFinal);
         return resultadoFinalOrdenado;
     }
-    public ArrayList<Integer> sumarArrays (ArrayList<Integer> num1, ArrayList<Integer> num2, int base, int tamaño, ArrayList<Integer> carry) {
+    public ArrayList<Integer> sumaArrays(ArrayList<Integer> num1, ArrayList<Integer> num2) {
         ArrayList<Integer> resultado = new ArrayList<Integer>();
+        ArrayList<Integer> carry = new ArrayList<Integer>();
+        int tamaño;
+        //Definir el tamaño del resultado.
+        if (num1.size() >= num2.size()) {
+            tamaño = num1.size();
+            for (int i = num2.size(); i < tamaño; i++) {
+                num2.add(0);
+            }
+        } else {
+            tamaño = num2.size();
+            for (int i = num1.size(); i < tamaño; i++) {
+                num2.add(0);
+            }
+        }
+        //igualar en tamaño todas las cadenas.
         for (int i = 0; i < tamaño; i++) {
+            carry.add(0);
             resultado.add(0);
+            num1.add(0);
+            num2.add(0);
+
         }
         for (int i = 0; i < tamaño; i++) {
             int resultadolocal = num1.get(i) + num2.get(i) + carry.get(i);
-            if (resultadolocal >= base-1) {
-                resultado.set(i, 0);
-                carry.set(i + 1, base-resultadolocal);
-            } else {
-                resultado.set(i, resultadolocal);
+            if(i!=tamaño-1) {
+                if (resultadolocal < 2) {
+                    resultado.set(i, resultadolocal);
+                } else {
+                    resultado.set(i, 0);
+                    carry.set(i + 1, 1);
+                }
+            }else{
+                if (resultadolocal < 2) {
+                    resultado.set(i, resultadolocal);
+                } else {
+                    resultado.set(i,0);
+                    resultado.add(1);
+                }
             }
         }
-    return resultado;
-    }
+
+
+    return resultado;}
 }
