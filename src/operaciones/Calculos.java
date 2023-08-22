@@ -51,13 +51,13 @@ public class Calculos {
             num2.set(i, Integer.parseInt(cad2.get(i)));
         }
         //LLamar al metodo de sumar arreglos.
-        resultadoFinal = sumaArrays(num1,num2);
+        resultadoFinal = sumaArrays(num1,num2,base);
 
         //Ordenar el resultado.
         ArrayList<Integer> resultadoFinalOrdenado = ordenarResultado(resultadoFinal);
         return resultadoFinalOrdenado;
     }
-    public ArrayList<Integer> sumaArrays(ArrayList<Integer> num1, ArrayList<Integer> num2) {
+    public ArrayList<Integer> sumaArrays(ArrayList<Integer> num1, ArrayList<Integer> num2, int base) {
         ArrayList<Integer> resultado = new ArrayList<Integer>();
         ArrayList<Integer> carry = new ArrayList<Integer>();
         int tamaño;
@@ -79,27 +79,26 @@ public class Calculos {
             resultado.add(0);
             num1.add(0);
             num2.add(0);
-
         }
         for (int i = 0; i < tamaño; i++) {
-            int resultadolocal = num1.get(i) + num2.get(i) + carry.get(i);
+            int resultadoLocal = num1.get(i) + num2.get(i) + carry.get(i);
             if(i!=tamaño-1) {
-                if (resultadolocal < 2) {
-                    resultado.set(i, resultadolocal);
+                if (resultadoLocal < 2) {
+                    resultado.set(i, resultadoLocal);
                 } else {
-                    resultado.set(i, 0);
+                    resultado.set(i, resultadoLocal-base);
                     carry.set(i + 1, 1);
                 }
             }else{
-                if (resultadolocal < 2) {
-                    resultado.set(i, resultadolocal);
+                if (resultadoLocal < base) {
+                    resultado.set(i, resultadoLocal);
                 } else {
-                    resultado.set(i,0);
+                    resultado.set(i, resultadoLocal-base);
                     resultado.add(1);
                 }
             }
         }
 
-
-    return resultado;}
+    return resultado;
+    }
 }
