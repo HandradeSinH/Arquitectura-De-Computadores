@@ -61,7 +61,6 @@ public class Calculos {
         ArrayList<Integer> resultado = new ArrayList<Integer>();
         ArrayList<Integer> carry = new ArrayList<Integer>();
         int tamaño;
-        //Definir el tamaño del resultado.
         if (num1.size() >= num2.size()) {
             tamaño = num1.size();
             for (int i = num2.size(); i < tamaño; i++) {
@@ -73,7 +72,6 @@ public class Calculos {
                 num2.add(0);
             }
         }
-        //igualar en tamaño todas las cadenas.
         for (int i = 0; i < tamaño; i++) {
             carry.add(0);
             resultado.add(0);
@@ -83,7 +81,7 @@ public class Calculos {
         for (int i = 0; i < tamaño; i++) {
             int resultadoLocal = num1.get(i) + num2.get(i) + carry.get(i);
             if(i!=tamaño-1) {
-                if (resultadoLocal < 2) {
+                if (resultadoLocal < base) {
                     resultado.set(i, resultadoLocal);
                 } else {
                     resultado.set(i, resultadoLocal-base);
@@ -98,7 +96,6 @@ public class Calculos {
                 }
             }
         }
-
     return resultado;
     }
 }
