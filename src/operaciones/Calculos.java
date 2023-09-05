@@ -1,13 +1,11 @@
 package operaciones;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import static java.lang.Integer.parseInt;
-import static java.util.Collections.*;
+import static java.util.Collections.addAll;
+import static java.util.Collections.reverse;
 
 public class Calculos {
-
     public ArrayList<String> reorganizarNumeros(String numero) {
         ArrayList<String> cadena = new ArrayList<String>();
         addAll(cadena, numero.split(""));
@@ -25,77 +23,72 @@ public class Calculos {
         ArrayList<Integer> resultadoFinal = new ArrayList<Integer>();
         ArrayList<Integer> num1 = new ArrayList<Integer>();
         ArrayList<Integer> num2 = new ArrayList<Integer>();
-        int tamaño;
-        //Definir el tamaño del resultado.
+        int tamano = 0;
+        //Definir el tamano del resultado.
         if (cad1.size() >= cad2.size()) {
-            tamaño = cad1.size();
-            for (int i = cad2.size(); i < tamaño; i++) {
-                cad2.add("0");
-            }
-        } else {
-            tamaño = cad2.size();
-            for (int i = cad1.size(); i < tamaño; i++) {
+            tamano = cad1.size();
+            for (int i = cad2.size(); i < tamano; i++) {
                 cad2.add("0");
             }
         }
-        //igualar en tamaño todas las cadenas.
-        for (int i = 0; i < tamaño; i++) {
+        if (cad2.size() >= cad1.size()) {
+            tamano = cad2.size();
+            for (int i = cad1.size(); i < tamano; i++) {
+                cad1.add("0");
+            }
+        }
+
+        //igualar en tamano todas las cadenas.
+        for (int i = 0; i < tamano; i++) {
             resultadoFinal.add(0);
             carry.add(0);
             num1.add(0);
             num2.add(0);
         }
         //Pasar a enteros(int) los numeros.
-        for (int i = 0; i < tamaño; i++) {
+        for (int i = 0; i < tamano; i++) {
             num1.set(i, Integer.parseInt(cad1.get(i)));
+        }
+        for (int i = 0; i < tamano; i++) {
             num2.set(i, Integer.parseInt(cad2.get(i)));
         }
         //LLamar al metodo de sumar arreglos.
-        resultadoFinal = sumaArrays(num1,num2,base);
+        resultadoFinal = sumaArrays(num1, num2, base, tamano);
 
         //Ordenar el resultado.
         ArrayList<Integer> resultadoFinalOrdenado = ordenarResultado(resultadoFinal);
+
         return resultadoFinalOrdenado;
     }
-    public ArrayList<Integer> sumaArrays(ArrayList<Integer> num1, ArrayList<Integer> num2, int base) {
+
+    public ArrayList<Integer> sumaArrays(ArrayList<Integer> num1, ArrayList<Integer> num2, int base, int tamano) {
         ArrayList<Integer> resultado = new ArrayList<Integer>();
         ArrayList<Integer> carry = new ArrayList<Integer>();
-        int tamaño;
-        if (num1.size() >= num2.size()) {
-            tamaño = num1.size();
-            for (int i = num2.size(); i < tamaño; i++) {
-                num2.add(0);
-            }
-        } else {
-            tamaño = num2.size();
-            for (int i = num1.size(); i < tamaño; i++) {
-                num2.add(0);
-            }
-        }
-        for (int i = 0; i < tamaño; i++) {
+
+        for (int i = 0; i < tamano; i++) {
             carry.add(0);
             resultado.add(0);
             num1.add(0);
             num2.add(0);
         }
-        for (int i = 0; i < tamaño; i++) {
+        for (int i = 0; i < tamano; i++) {
             int resultadoLocal = num1.get(i) + num2.get(i) + carry.get(i);
-            if(i!=tamaño-1) {
+            if (i != tamano - 1) {
                 if (resultadoLocal < base) {
                     resultado.set(i, resultadoLocal);
                 } else {
-                    resultado.set(i, resultadoLocal-base);
+                    resultado.set(i, resultadoLocal - base);
                     carry.set(i + 1, 1);
                 }
-            }else{
+            } else {
                 if (resultadoLocal < base) {
                     resultado.set(i, resultadoLocal);
                 } else {
-                    resultado.set(i, resultadoLocal-base);
+                    resultado.set(i, resultadoLocal - base);
                     resultado.add(1);
                 }
             }
         }
-    return resultado;
+        return resultado;
     }
 }
