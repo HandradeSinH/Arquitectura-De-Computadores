@@ -18,61 +18,40 @@ public class Calculos {
         return cadena;
     }
 
-    public ArrayList<Integer> sumarNumeros(ArrayList<String> cad1, ArrayList<String> cad2, int base) {
-        ArrayList<Integer> carry = new ArrayList<Integer>();
-        ArrayList<Integer> resultadoFinal = new ArrayList<Integer>();
-        ArrayList<Integer> num1 = new ArrayList<Integer>();
-        ArrayList<Integer> num2 = new ArrayList<Integer>();
-        int tamano = 0;
-        //Definir el tamano del resultado.
-        if (cad1.size() >= cad2.size()) {
-            tamano = cad1.size();
-            for (int i = cad2.size(); i < tamano; i++) {
-                cad2.add("0");
-            }
-        }
-        if (cad2.size() >= cad1.size()) {
-            tamano = cad2.size();
-            for (int i = cad1.size(); i < tamano; i++) {
-                cad1.add("0");
-            }
-        }
-
-        //igualar en tamano todas las cadenas.
+    public ArrayList<Integer> convertirAEntero(ArrayList<String> cad) {
+        ArrayList<Integer> num = new ArrayList<Integer>();
+        int tamano = cad.size();
         for (int i = 0; i < tamano; i++) {
-            resultadoFinal.add(0);
-            carry.add(0);
-            num1.add(0);
-            num2.add(0);
+            num.add(0);
+            num.set(i, Integer.parseInt(cad.get(i)));
         }
-        //Pasar a enteros(int) los numeros.
-        for (int i = 0; i < tamano; i++) {
-            num1.set(i, Integer.parseInt(cad1.get(i)));
-        }
-        for (int i = 0; i < tamano; i++) {
-            num2.set(i, Integer.parseInt(cad2.get(i)));
-        }
-        //LLamar al metodo de sumar arreglos.
-        resultadoFinal = sumaArrays(num1, num2, base, tamano);
-
-        //Ordenar el resultado.
-        ArrayList<Integer> resultadoFinalOrdenado = ordenarResultado(resultadoFinal);
-
-        return resultadoFinalOrdenado;
+        return num;
     }
 
-    public ArrayList<Integer> sumaArrays(ArrayList<Integer> num1, ArrayList<Integer> num2, int base, int tamano) {
+    public ArrayList<Integer> sumaArrays(ArrayList<String> num1, ArrayList<String> num2, int base) {
         ArrayList<Integer> resultado = new ArrayList<Integer>();
         ArrayList<Integer> carry = new ArrayList<Integer>();
-
+        ArrayList<Integer> numero1 = convertirAEntero(num1);
+        ArrayList<Integer> numero2 = convertirAEntero(num2);
+        int tamano = 0;
+        if (numero1.size() >= numero2.size()) {
+            tamano = numero1.size();
+            for (int i = numero2.size(); i < tamano; i++) {
+                numero2.add(0);
+            }
+        }
+        if (numero2.size() >= numero1.size()) {
+            tamano = numero2.size();
+            for (int i = numero1.size(); i < tamano; i++) {
+                numero1.add(0);
+            }
+        }
         for (int i = 0; i < tamano; i++) {
             carry.add(0);
             resultado.add(0);
-            num1.add(0);
-            num2.add(0);
         }
         for (int i = 0; i < tamano; i++) {
-            int resultadoLocal = num1.get(i) + num2.get(i) + carry.get(i);
+            int resultadoLocal = numero1.get(i) + numero2.get(i) + carry.get(i);
             if (i != tamano - 1) {
                 if (resultadoLocal < base) {
                     resultado.set(i, resultadoLocal);
@@ -89,6 +68,7 @@ public class Calculos {
                 }
             }
         }
+        reverse(resultado);
         return resultado;
     }
 }

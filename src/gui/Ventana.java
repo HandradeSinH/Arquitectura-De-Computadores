@@ -152,10 +152,10 @@ public class Ventana extends javax.swing.JFrame {
         int baseInt = Integer.parseInt(base);
         Calculos calc = new Calculos();
         int i=0;
-        ArrayList<String> numero1Int = calc.reorganizarNumeros(numero1);
-        ArrayList<String> numero2Int = calc.reorganizarNumeros(numero2);
+        ArrayList<String> num1 = calc.reorganizarNumeros(numero1);
+        ArrayList<String> num2 = calc.reorganizarNumeros(numero2);
         ArrayList<Integer> resultado = new ArrayList<Integer>();
-        resultado = calc.sumarNumeros(numero1Int, numero2Int,baseInt);
+        resultado = calc.sumaArrays(num1, num2,baseInt);
         for (Integer jose : resultado) {
             resultadoBox.setText(resultado.toString());
         }
