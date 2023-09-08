@@ -13,10 +13,6 @@ public class Calculos {
         return cadena;
     }
 
-    public ArrayList<Integer> ordenarResultado(ArrayList<Integer> cadena) {
-        reverse(cadena);
-        return cadena;
-    }
 
     public ArrayList<Integer> convertirAEntero(ArrayList<String> cad) {
         ArrayList<Integer> num = new ArrayList<Integer>();
@@ -28,11 +24,11 @@ public class Calculos {
         return num;
     }
 
-    public ArrayList<Integer> sumaArrays(ArrayList<String> num1, ArrayList<String> num2, int base) {
+    public ArrayList<Integer> sumaArrays(String num1, String num2, int base) {
         ArrayList<Integer> resultado = new ArrayList<Integer>();
         ArrayList<Integer> carry = new ArrayList<Integer>();
-        ArrayList<Integer> numero1 = convertirAEntero(num1);
-        ArrayList<Integer> numero2 = convertirAEntero(num2);
+        ArrayList<Integer> numero1 = convertirAEntero(reorganizarNumeros(num1));
+        ArrayList<Integer> numero2 = convertirAEntero(reorganizarNumeros(num2));
         int tamano = 0;
         if (numero1.size() >= numero2.size()) {
             tamano = numero1.size();
