@@ -1,22 +1,47 @@
 package gui;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import operaciones.Calculos;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import static java.util.Collections.reverse;
+
 /**
- *
  * @author Daniel Andrade
  */
 public class Ventana extends javax.swing.JFrame {
 
+    private JPanel panel1;
+    // Variables declaration - do not modify
+    private javax.swing.JTextField base;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextPane numero1;
+    private javax.swing.JTextPane numero2;
+    private javax.swing.JTextPane resultadoBox;
+    private javax.swing.JButton salir;
+    private javax.swing.JButton sumar;
     public Ventana() {
         initComponents();
         this.setTitle("5 Por Favor");
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Ventana().setVisible(true);
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -114,54 +139,68 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     private void sumarActionPerformed(java.awt.event.ActionEvent evt) {
-        sumar(numero1.getText(),numero2.getText(),base.getText());
+        sumar(numero1.getText(), numero2.getText(), base.getText());
     }
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {
         salir();
     }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Ventana().setVisible(true);
-            }
-        });
-    }
-
-    // Variables declaration - do not modify
-    private javax.swing.JTextField base;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextPane numero1;
-    private javax.swing.JTextPane numero2;
-    private javax.swing.JTextPane resultadoBox;
-    private javax.swing.JButton salir;
-    private javax.swing.JButton sumar;
     // End of variables declaration
 
-    private void sumar(String numero1, String numero2, String base){
+    private void sumar(String numero1, String numero2, String base) {
         int baseInt = Integer.parseInt(base);
         Calculos calc = new Calculos();
-        int i=0;
-
+        int i = 0;
         ArrayList<Integer> resultado = new ArrayList<Integer>();
-        resultado = calc.sumaArrays(numero1, numero2,baseInt);
+        resultado = calc.sumaArrays(numero1, numero2, baseInt);
         for (Integer jose : resultado) {
             resultadoBox.setText(resultado.toString());
         }
 
     }
-    private void salir() {
-        System.exit(0);
-    }
 
-}
+    private void salir() {
+        Calculos calc = new Calculos();
+        Scanner sc = new Scanner(System.in);
+        int menu;
+        do {
+            System.out.println("\nQue quiere hacer?: ");
+            System.out.println("1) Convertir de Binario a Decimal.");
+            System.out.println("2) Convertir de Decimal a Binario.");
+            System.out.println("3) Convertir de Octal a Decimal.");
+            System.out.println("4) Convertir de Decimal a Octal.");
+            System.out.println("5) Salir.");
+            menu = Integer.parseInt(sc.nextLine());
+            switch (menu) {
+                case 1:
+                    System.out.print("Digite el numero a convertir: ");
+                    int resultadoBin = calc.baseVariableaDecimal(sc.nextLine(), "2");
+                    System.out.print(resultadoBin);
+                    break;
+                case 2:
+                    System.out.print("Digite el numero a convertir: ");
+                    ArrayList<Integer> numeroConvertidoBin = calc.decimalABaseVariable(sc.nextLine(), "2");
+                    reverse(numeroConvertidoBin);
+                    System.out.print("Resultado: ");
+                    for (int i = 0; i < numeroConvertidoBin.size(); i++) {
+                        System.out.print(numeroConvertidoBin.get(i));
+                    }
+                    break;
+                case 3:
+                    System.out.print("Digite el numero a convertir: ");
+                    int resultadoOct = calc.baseVariableaDecimal(sc.nextLine(), "8");
+                    System.out.println(resultadoOct);
+                    break;
+                case 4:
+                    System.out.print("Digite el numero a convertir: ");
+                    ArrayList<Integer> numeroConvertidoOct = calc.decimalABaseVariable(sc.nextLine(), "8");
+                    System.out.print("resultado: ");
+                    for (int i = 0; i < numeroConvertidoOct.size(); i++) {
+                        System.out.print(numeroConvertidoOct.get(i));
+                    }
+                    break;
+            }
+        }while (menu!=5);
+        }
+
+    }
