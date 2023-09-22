@@ -10,10 +10,27 @@ public class Calculos {
     public ArrayList<String> reorganizarNumerosString(String numero) {
         ArrayList<String> cadena = new ArrayList<String>();
         addAll(cadena, numero.split(""));
-        reverse(cadena);
-        return cadena;
-    }
+        for (int i = 0; i < cadena.size(); i++) {
+            switch (cadena.get(i)) {
+                case "A":
+                    cadena.set(i, "10");
+                case "B":
+                    cadena.set(i, "11");
+                case "C":
+                    cadena.set(i, "12");
+                case "D":
+                    cadena.set(i, "13");
+                case "E":
+                    cadena.set(i, "14");
+                case "F":
+                    cadena.set(i, "15");
+                default:
+            }
+        }
+            reverse(cadena);
+            return cadena;
 
+    }
     public ArrayList<String> reorganizarNumerosInt(int numero) {
         String numeroConv = String.valueOf(numero);
         ArrayList<String> cadena = new ArrayList<String>();
@@ -39,50 +56,48 @@ public class Calculos {
         ArrayList<Integer> numero1 = convertirAEntero(reorganizarNumerosString(num1));
         ArrayList<Integer> numero2 = convertirAEntero(reorganizarNumerosString(num2));
         int baseInt = Integer.parseInt(base);
-        int tamano = 0;
-        if (numero1.size() >= numero2.size()) {
-            tamano = numero1.size();
-            for (int i = numero2.size(); i < tamano; i++) {
-                numero2.add(0);
-            }
-        }
-        if (numero2.size() >= numero1.size()) {
-            tamano = numero2.size();
-            for (int i = numero1.size(); i < tamano; i++) {
-                numero1.add(0);
-            }
-        }
-        for (int i = 0; i < tamano; i++) {
-            carry.add(0);
-            resultado.add(0);
-        }
-        //Operacion en tal
-        for (int i = 0; i < tamano; i++) {
-            int resultadoLocal = numero1.get(i) + numero2.get(i) + carry.get(i);
-            if (i != tamano - 1) {
-                if (resultadoLocal < baseInt) {
-                    resultado.set(i, resultadoLocal);
-                } else {
-                    resultado.set(i, resultadoLocal - baseInt);
-                    carry.set(i + 1, 1);
-                }
-            } else {
-                if (resultadoLocal < baseInt) {
-                    resultado.set(i, resultadoLocal);
-                } else {
-                    resultado.set(i, resultadoLocal - baseInt);
-                    resultado.add(1);
-                }
-            }
-        }
         int resultadoInt = 0;
-
-        for (int i = 0; i < resultado.size(); i++) {
-            resultadoInt = (int) ((resultado.get(i) * Math.pow(10, i)) + resultadoInt);
-        }
+            int tamano = 0;
+            if (numero1.size() >= numero2.size()) {
+                tamano = numero1.size();
+                for (int i = numero2.size(); i < tamano; i++) {
+                    numero2.add(0);
+                }
+            }
+            if (numero2.size() >= numero1.size()) {
+                tamano = numero2.size();
+                for (int i = numero1.size(); i < tamano; i++) {
+                    numero1.add(0);
+                }
+            }
+            for (int i = 0; i < tamano; i++) {
+                carry.add(0);
+                resultado.add(0);
+            }
+            //Operacion en tal
+            for (int i = 0; i < tamano; i++) {
+                int resultadoLocal = numero1.get(i) + numero2.get(i) + carry.get(i);
+                if (i != tamano - 1) {
+                    if (resultadoLocal < baseInt) {
+                        resultado.set(i, resultadoLocal);
+                    } else {
+                        resultado.set(i, resultadoLocal - baseInt);
+                        carry.set(i + 1, 1);
+                    }
+                } else {
+                    if (resultadoLocal < baseInt) {
+                        resultado.set(i, resultadoLocal);
+                    } else {
+                        resultado.set(i, resultadoLocal - baseInt);
+                        resultado.add(1);
+                    }
+                }
+            }
+            for (int i = 0; i < resultado.size(); i++) {
+                resultadoInt = (int) ((resultado.get(i) * Math.pow(10, i)) + resultadoInt);
+            }
         return resultadoInt;
     }
-
     public int restaArrays(String num1, String num2, String base) {
         int numeroConvertido1 = Integer.parseInt(num1);
         int numeroConvertido2 = Integer.parseInt(num2);
@@ -158,24 +173,22 @@ public class Calculos {
         int numeroConvertido = 0;
         for (int i = 0; i < numero.length(); i++) {
             numeroConvertido = (int) ((numeroArray.get(i) * Math.pow(baseInt, i)) + numeroConvertido);
-        }
+            }
         return numeroConvertido;
     }
-    public void baseVariableaDecimalProcedimiento(String numero, String base){
-
-    }
-    public int decimalABaseVariable(String numero, String base) {
+    public int convertirdebaseabase(String numero, String baseEntrada, String baseSalida) {
         int numeroInt = Integer.parseInt(numero);
-        int baseInt = Integer.parseInt(base);
+        int baseEntradaInt = Integer.parseInt(baseEntrada);
+        int baseSalidaInt = Integer.parseInt(baseSalida);
         ArrayList<Integer> numeroConvertido = new ArrayList<Integer>();
-        for (int i = 0; numeroInt>=baseInt; i++) {
-            numeroConvertido.add(i, numeroInt % baseInt);
-            numeroInt = numeroInt / baseInt;
+        for (int i = 0; numeroInt>=baseEntradaInt; i++) {
+            numeroConvertido.add(i, numeroInt % baseEntradaInt);
+            numeroInt = numeroInt / baseEntradaInt;
         }
         numeroConvertido.add(numeroConvertido.size(),numeroInt);
         int numeroConvertidoInt = 0;
         for (int i = 0; i < numeroConvertido.size(); i++) {
-            numeroConvertidoInt = (int) ((numeroConvertido.get(i) * Math.pow(10, i)) + numeroConvertidoInt);
+            numeroConvertidoInt = (int) ((numeroConvertido.get(i) * Math.pow(baseSalidaInt, i)) + numeroConvertidoInt);
         }
     return numeroConvertidoInt;
     }
