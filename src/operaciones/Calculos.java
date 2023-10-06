@@ -93,15 +93,8 @@ public class Calculos {
         ArrayList<Integer> numero1 = convertirAEntero(reorganizarNumerosInt(numeroConvertido1));
         ArrayList<Integer> numero2 = convertirAEntero(reorganizarNumerosInt(numeroConvertido2));
         for (int i = 0; i < numero1.size(); i++) {
-            if (numero1.get(i) > baseInt) {
-                JOptionPane.showMessageDialog(null, "Error de digitacion en el primer numero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                seguir = false;
-            }
-            break;
-        }
-        for (int i = 0; i < numero2.size(); i++) {
-            if (numero2.get(i) > baseInt) {
-                JOptionPane.showMessageDialog(null, "Error de digitacion en el segundo numero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            if (numero1.get(i) > baseInt || numero2.get(i) > baseInt) {
+                JOptionPane.showMessageDialog(null, "Error de digitacion.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 seguir = false;
             }
             break;
