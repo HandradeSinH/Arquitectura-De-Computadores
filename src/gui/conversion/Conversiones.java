@@ -6,6 +6,9 @@ package gui.conversion;
 
 import operaciones.Calculos;
 
+import javax.swing.*;
+import java.util.ArrayList;
+
 /**
  * @author Daniel Andrade
  */
@@ -206,18 +209,18 @@ public class Conversiones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void convProceButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_convProceButActionPerformed
-
+        procedimientos(convNumeroBox.getText(), convBase1Box.getText(), convBase2Box.getText());
     }//GEN-LAST:event_convProceButActionPerformed
 
     private void convCalcButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_convCalcButActionPerformed
-        Calculos calc = new Calculos();
-        calc.convertirdebaseabase("123464","8","10");
+        convertirdeBaseaBase(convNumeroBox.getText(), convBase1Box.getText(), convBase2Box.getText());
+
     }//GEN-LAST:event_convCalcButActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -264,5 +267,42 @@ public class Conversiones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+
     // End of variables declaration//GEN-END:variables
+    public void convertirdeBaseaBase(String numero, String baseEntrada, String baseSalida) {
+        Calculos calc = new Calculos();
+        int numDecimal = calc.convertirADecimal(numero, baseEntrada);
+        int resultado = calc.convertirABase(numDecimal, baseSalida);
+        convResulBox.setText(String.valueOf(resultado));
+    }
+
+    public void procedimientos(String numero, String baseEntrada, String baseSalida) {
+        Calculos calc = new Calculos();
+        System.out.println("Convertir a Decimal: ");
+        ArrayList<Integer> numeroArray = calc.convertirAEntero(calc.reorganizarNumerosString(numero));
+        int baseInt = Integer.parseInt(baseEntrada);
+        int numeroConvertido = 0;
+        for (int i = 0; i < numero.length(); i++) {
+            numeroConvertido = (int) ((numeroArray.get(i) * Math.pow(baseInt, i)) + numeroConvertido);
+            System.out.print((int) (numeroArray.get(i) * Math.pow(baseInt, i)) + " = " + numeroArray.get(i) + " x " + (int) Math.pow(baseInt, i));
+            if (i == numero.length() - 1) {
+                System.out.println("\n = ");
+            } else {
+                System.out.println("\n + ");
+            }
+        }
+        System.out.print("Resultado: "+numeroConvertido+" en base(10).");
+        System.out.println("\nConvertir a base("+baseSalida+"):");
+        int numeroInt = numeroConvertido;
+        int baseInt2 = Integer.parseInt(baseSalida);
+        ArrayList<Integer> numeroConvertido2 = new ArrayList<Integer>();
+        for (int i = 0; numeroInt>=baseInt2; i++) {
+            numeroConvertido2.add(i, numeroInt % baseInt2);
+            System.out.print(numeroInt+" / "+baseInt2+" = ");
+            numeroInt = numeroInt / baseInt2;
+            System.out.println(numeroInt);
+            System.out.println(" Residuo = "+numeroConvertido2.get(i)+"\n----------------------");
+        }
+        numeroConvertido2.add(numeroConvertido2.size(),numeroInt);
+}
 }

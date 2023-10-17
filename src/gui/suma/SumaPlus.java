@@ -4,6 +4,8 @@
  */
 package gui.suma;
 
+import operaciones.Calculos;
+
 /**
  * @author Daniel Andrade
  */
@@ -206,12 +208,13 @@ public class SumaPlus extends javax.swing.JFrame {
 
     private void restaCalcButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaCalcButActionPerformed
         // TODO add your handling code here:
+        suma(sumaPBase1Box.getText(), sumaPNumero1Box.getText(), sumaPBase2Box.getText(), sumaPNumero2Box.getText());
     }//GEN-LAST:event_restaCalcButActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -258,5 +261,12 @@ public class SumaPlus extends javax.swing.JFrame {
     private javax.swing.JTextField sumaPNumero1Box;
     private javax.swing.JTextField sumaPNumero2Box;
     private javax.swing.JTextField sumaPResultadoBut;
+
     // End of variables declaration//GEN-END:variables
+    public void suma(String base1, String num1, String base2, String num2) {
+        Calculos calc = new Calculos();
+        int numero1 = calc.convertirADecimal(num1, base1);
+        int numero2 = calc.convertirADecimal(num2, base2);
+        sumaPResultadoBut.setText(String.valueOf(numero1 + numero2));
+    }
 }

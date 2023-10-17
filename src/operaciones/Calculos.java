@@ -1,5 +1,7 @@
 package operaciones;
 
+import org.w3c.dom.ls.LSOutput;
+
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -7,6 +9,7 @@ import static java.util.Collections.addAll;
 import static java.util.Collections.reverse;
 
 public class Calculos {
+
     public ArrayList<String> reorganizarNumerosString(String numero) {
         ArrayList<String> cadena = new ArrayList<String>();
         addAll(cadena, numero.split(""));
@@ -22,14 +25,43 @@ public class Calculos {
         reverse(cadena);
         return cadena;
     }
-
+    private static boolean isNumeric(String cadena){
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe){
+            return false;
+        }
+    }
 
     public ArrayList<Integer> convertirAEntero(ArrayList<String> cad) {
         ArrayList<Integer> num = new ArrayList<Integer>();
         int tamano = cad.size();
         for (int i = 0; i < tamano; i++) {
-            num.add(0);
-            num.set(i, Integer.parseInt(cad.get(i)));
+            if (isNumeric(cad.get(i))){
+                num.add(Integer.parseInt(cad.get(i)));
+            }else{
+                switch (cad.get(i)){
+                    case "A":
+                        num.add(10);
+                        break;
+                    case "B":
+                        num.add(11);
+                        break;
+                    case "C":
+                        num.add(12);
+                        break;
+                    case "D":
+                        num.add(13);
+                        break;
+                    case "E":
+                        num.add(14);
+                        break;
+                    case "F":
+                        num.add(15);
+                        break;
+                }
+            }
         }
         return num;
     }
@@ -149,11 +181,7 @@ public class Calculos {
 
             for (int i = 0; i < resultado.size(); i++) {
                 resultadoInt = (int) ((resultado.get(i) * Math.pow(10, i)) + resultadoInt);
-            }
-            for (int i = 0; i < numero1.size(); i++) {
                 numero1Int = (int) ((numero1.get(i) * Math.pow(10, i)) + numero1Int);
-            }
-            for (int i = 0; i < numero2.size(); i++) {
                 numero2Int = (int) ((numero2.get(i) * Math.pow(10, i)) + numero2Int);
             }
             if (numero1Int < numero2Int) {
@@ -163,12 +191,29 @@ public class Calculos {
         return resultadoInt;
     }
 
-    public int convertirdebaseabase(String numero, String baseEntrada, String baseSalida) {
+    public int convertirADecimal(String numero, String base) {
         ArrayList<Integer> numeroArray = convertirAEntero(reorganizarNumerosString(numero));
-        int baseEntradaInt = Integer.parseInt(baseEntrada);
-        int baseSalidaInt = Integer.parseInt(baseSalida);
-        ArrayList<Integer> numeroConvertido = new ArrayList<Integer>();
-
-        return 0;
+        int baseInt = Integer.parseInt(base);
+        int numeroConvertido = 0;
+        for (int i = 0; i < numeroArray.size(); i++) {
+            numeroConvertido = (int) (numeroArray.get(i)*Math.pow(baseInt,i)+numeroConvertido);
+        }
+        System.out.println(numeroConvertido);
+        return numeroConvertido;
+    }
+    public int convertirABase(int numero,String base){
+        int baseInt = Integer.parseInt(base);
+        int numeroConvertido = 0;
+        ArrayList<Integer> resultado = new ArrayList<Integer>();
+        for (int i = 0; numero>=baseInt; i++) {
+            resultado.add(i, numero % baseInt);
+            numero = numero / baseInt;
+        }
+        resultado.add(resultado.size(),numero);
+        int numeroConvertidoInt = 0;
+        for (int i = 0; i < resultado.size(); i++) {
+            numeroConvertidoInt = (int) ((resultado.get(i) * Math.pow(10, i)) + numeroConvertidoInt);
+        }
+    return numeroConvertidoInt;
     }
 }

@@ -4,6 +4,8 @@
  */
 package gui.multiplicacion;
 
+import operaciones.Calculos;
+
 /**
  * @author Daniel Andrade
  */
@@ -204,12 +206,13 @@ public class MultiplicacionPlus extends javax.swing.JFrame {
 
     private void multPCalcButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multPCalcButActionPerformed
         // TODO add your handling code here:
+        multiplicar(multPNumero1Box.getText(), multPBase1Box.getText(), multPNumero2Box.getText(), multPBase2Box.getText());
     }//GEN-LAST:event_multPCalcButActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -256,5 +259,13 @@ public class MultiplicacionPlus extends javax.swing.JFrame {
     private javax.swing.JTextField multPNumero1Box;
     private javax.swing.JTextField multPNumero2Box;
     private javax.swing.JTextField multPResultadoBut;
+
     // End of variables declaration//GEN-END:variables
+    public void multiplicar(String numero1, String base1, String numero2, String base2) {
+        Calculos calc = new Calculos();
+        int num1 = calc.convertirADecimal(numero1, base1);
+        int num2 = calc.convertirADecimal(numero2, base2);
+        int resultado = num1 * num2;
+        multPResultadoBut.setText(String.valueOf(resultado));
+    }
 }
