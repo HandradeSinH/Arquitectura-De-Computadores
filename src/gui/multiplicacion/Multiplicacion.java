@@ -6,6 +6,9 @@ package gui.multiplicacion;
 
 import operaciones.Calculos;
 
+import javax.swing.*;
+import java.util.ArrayList;
+
 /**
  * @author Daniel Andrade
  */
@@ -167,7 +170,21 @@ public class Multiplicacion extends javax.swing.JFrame {
 
     private void multCalcButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multCalcButActionPerformed
         // TODO add your handling code here:
-        multiplicar(multNum1Box.getText(), multNumero2Box.getText(), multBaseBox.getText());
+        Calculos calc = new Calculos();
+        ArrayList<Integer> numero1 = calc.convertirAEntero(calc.reorganizarNumerosString(multNum1Box.getText()));
+        ArrayList<Integer> numero2 = calc.convertirAEntero(calc.reorganizarNumerosString(multNumero2Box.getText()));
+        int baseInt = Integer.parseInt(multBaseBox.getText());
+        boolean seguir = true;
+        for (int i = 0; i < numero1.size(); i++) {
+            if (numero1.get(i) > baseInt || numero2.get(i) > baseInt) {
+                JOptionPane.showMessageDialog(null, "Error de digitacion.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
+            }
+            break;
+        }
+        if (seguir) {
+            multiplicar(multNum1Box.getText(), multNumero2Box.getText(), multBaseBox.getText());
+        }
     }//GEN-LAST:event_multCalcButActionPerformed
 
     /**

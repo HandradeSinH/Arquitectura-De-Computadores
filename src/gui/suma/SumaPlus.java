@@ -6,6 +6,9 @@ package gui.suma;
 
 import operaciones.Calculos;
 
+import javax.swing.*;
+import java.util.ArrayList;
+
 /**
  * @author Daniel Andrade
  */
@@ -208,7 +211,23 @@ public class SumaPlus extends javax.swing.JFrame {
 
     private void restaCalcButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaCalcButActionPerformed
         // TODO add your handling code here:
-        suma(sumaPBase1Box.getText(), sumaPNumero1Box.getText(), sumaPBase2Box.getText(), sumaPNumero2Box.getText());
+        Calculos calc = new Calculos();
+        ArrayList<Integer> numero1 = calc.convertirAEntero(calc.reorganizarNumerosString(sumaPNumero1Box.getText()));
+        ArrayList<Integer> numero2 = calc.convertirAEntero(calc.reorganizarNumerosString(sumaPNumero2Box.getText()));
+        int base1Int = Integer.parseInt(sumaPBase1Box.getText());
+        int base2Int = Integer.parseInt(sumaPBase2Box.getText());
+        boolean seguir = true;
+        for (int i = 0; i < numero1.size(); i++) {
+            if (numero1.get(i) > base1Int || numero2.get(i) > base2Int) {
+                JOptionPane.showMessageDialog(null, "Error de digitacion.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
+            }
+            break;
+        }
+
+        if (seguir) {
+            suma(sumaPBase1Box.getText(), sumaPNumero1Box.getText(), sumaPBase2Box.getText(), sumaPNumero2Box.getText());
+        }
     }//GEN-LAST:event_restaCalcButActionPerformed
 
     /**

@@ -73,48 +73,57 @@ public class Calculos {
         ArrayList<Integer> numero2 = convertirAEntero(reorganizarNumerosString(num2));
         int baseInt = Integer.parseInt(base);
         int resultadoInt = 0;
-        int tamano = 0;
-        if (numero1.size() >= numero2.size()) {
-            tamano = numero1.size();
-            for (int i = numero2.size(); i < tamano; i++) {
-                numero2.add(0);
+        boolean seguir = true;
+        for (int i = 0; i < numero1.size(); i++) {
+            if (numero1.get(i) > baseInt || numero2.get(i) > baseInt) {
+                JOptionPane.showMessageDialog(null, "Error de digitacion.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
             }
+            break;
         }
-        if (numero2.size() >= numero1.size()) {
-            tamano = numero2.size();
-            for (int i = numero1.size(); i < tamano; i++) {
-                numero1.add(0);
-            }
-        }
-        for (int i = 0; i < tamano; i++) {
-            carry.add(0);
-            resultado.add(0);
-        }
-        //Operacion en tal
-        for (int i = 0; i < tamano; i++) {
-            int resultadoLocal = numero1.get(i) + numero2.get(i) + carry.get(i);
-            if (i != tamano - 1) {
-                if (resultadoLocal < baseInt) {
-                    resultado.set(i, resultadoLocal);
-                } else {
-                    resultado.set(i, resultadoLocal - baseInt);
-                    carry.set(i + 1, 1);
-                }
-            } else {
-                if (resultadoLocal < baseInt) {
-                    resultado.set(i, resultadoLocal);
-                } else {
-                    resultado.set(i, resultadoLocal - baseInt);
-                    resultado.add(1);
+        if (seguir) {
+            int tamano = 0;
+            if (numero1.size() >= numero2.size()) {
+                tamano = numero1.size();
+                for (int i = numero2.size(); i < tamano; i++) {
+                    numero2.add(0);
                 }
             }
-        }
-        for (int i = 0; i < resultado.size(); i++) {
-            resultadoInt = (int) ((resultado.get(i) * Math.pow(10, i)) + resultadoInt);
+            if (numero2.size() >= numero1.size()) {
+                tamano = numero2.size();
+                for (int i = numero1.size(); i < tamano; i++) {
+                    numero1.add(0);
+                }
+            }
+            for (int i = 0; i < tamano; i++) {
+                carry.add(0);
+                resultado.add(0);
+            }
+            //Operacion en tal
+            for (int i = 0; i < tamano; i++) {
+                int resultadoLocal = numero1.get(i) + numero2.get(i) + carry.get(i);
+                if (i != tamano - 1) {
+                    if (resultadoLocal < baseInt) {
+                        resultado.set(i, resultadoLocal);
+                    } else {
+                        resultado.set(i, resultadoLocal - baseInt);
+                        carry.set(i + 1, 1);
+                    }
+                } else {
+                    if (resultadoLocal < baseInt) {
+                        resultado.set(i, resultadoLocal);
+                    } else {
+                        resultado.set(i, resultadoLocal - baseInt);
+                        resultado.add(1);
+                    }
+                }
+            }
+            for (int i = 0; i < resultado.size(); i++) {
+                resultadoInt = (int) ((resultado.get(i) * Math.pow(10, i)) + resultadoInt);
+            }
         }
         return resultadoInt;
     }
-
     public int restaArrays(String num1, String num2, String base) {
         int numeroConvertido1 = Integer.parseInt(num1);
         int numeroConvertido2 = Integer.parseInt(num2);
